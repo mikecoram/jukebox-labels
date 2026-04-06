@@ -57,7 +57,7 @@
         left: 0;
         right: 0;
         padding: 12px 24px env(safe-area-inset-bottom);
-        background: linear-gradient(to top, #1c1410 60%, rgba(28,20,16,0));
+        background: linear-gradient(to top, #1c1410 60%, rgba(28, 20, 16, 0));
         z-index: 10;
       }
       .btn-print {
@@ -73,7 +73,10 @@
         text-transform: uppercase;
         cursor: pointer;
         color: #9a8870;
-        transition: border-color 0.2s, color 0.2s, background-color 0.2s;
+        transition:
+          border-color 0.2s,
+          color 0.2s,
+          background-color 0.2s;
       }
       .btn-print:hover {
         border-color: #c5a85a;
@@ -90,7 +93,9 @@
         max-width: min(1200px, calc(100vw - 48px));
       }
       @media (max-width: 640px) {
-        .label-grid { grid-template-columns: 1fr; }
+        .label-grid {
+          grid-template-columns: 1fr;
+        }
       }
 
       /* ── Individual card ── */
@@ -130,9 +135,16 @@
         min-width: 0;
         transition: border-color 0.15s;
       }
-      .card-input::placeholder { color: #5a4830; }
-      .card-input:focus { border-color: #c5a85a; }
-      .card-input.artist { font-weight: 700; flex: 1.4; }
+      .card-input::placeholder {
+        color: #5a4830;
+      }
+      .card-input:focus {
+        border-color: #c5a85a;
+      }
+      .card-input.artist {
+        font-weight: 700;
+        flex: 1.4;
+      }
 
       .btn-remove {
         background: transparent;
@@ -144,7 +156,9 @@
         font-size: 0.8rem;
         line-height: 1;
         flex-shrink: 0;
-        transition: border-color 0.15s, color 0.15s;
+        transition:
+          border-color 0.15s,
+          color 0.15s;
       }
       .btn-remove:hover {
         border-color: #a04030;
@@ -170,7 +184,10 @@
         justify-content: center;
         color: #3a2c1c;
         font-size: 2rem;
-        transition: border-color 0.2s, color 0.2s, background-color 0.2s;
+        transition:
+          border-color 0.2s,
+          color 0.2s,
+          background-color 0.2s;
       }
       .add-placeholder:hover {
         border-color: #8a6830;
@@ -185,7 +202,10 @@
           padding: 0;
           display: block;
         }
-        header, .print-bar, .card-controls, .add-placeholder {
+        header,
+        .print-bar,
+        .card-controls,
+        .add-placeholder {
           display: none !important;
         }
         .label-grid {
@@ -205,11 +225,15 @@
     </header>
 
     <div class="print-bar">
-      <button class="btn-print" onclick="window.print()">&#128438;&nbsp; Print</button>
+      <button class="btn-print" onclick="window.print()">
+        &#128438;&nbsp; Print
+      </button>
     </div>
 
     <div class="label-grid" id="labelGrid">
-      <div class="add-placeholder" id="addPlaceholder" onclick="addLabel()">+</div>
+      <div class="add-placeholder" id="addPlaceholder" onclick="addLabel()">
+        +
+      </div>
     </div>
 
     <script>
@@ -217,7 +241,8 @@
 
       function makeLabelSvg(id) {
         const s6 = 'fill="none" stroke-width="0.6"';
-        const oct = "18.47 32.39 18.47 39.47 23.42 44.43 197.71 44.43 202.72 39.47 202.72 32.39 197.82 27.42 23.43 27.42 18.47 32.39";
+        const oct =
+          "18.47 32.39 18.47 39.47 23.42 44.43 197.71 44.43 202.72 39.47 202.72 32.39 197.82 27.42 23.43 27.42 18.47 32.39";
         return `<svg viewBox="-10 -10 241.1 91.86" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <clipPath id="c0-${id}"><rect fill="none" width="221.1" height="71.86"/></clipPath>
@@ -287,9 +312,12 @@
       }
 
       function sync(id) {
-        document.getElementById(`svgTA-${id}`).textContent = document.getElementById(`inTA-${id}`).value || "\u00A0";
-        document.getElementById(`svgA-${id}`).textContent  = document.getElementById(`inA-${id}`).value  || "\u00A0";
-        document.getElementById(`svgTB-${id}`).textContent = document.getElementById(`inTB-${id}`).value || "\u00A0";
+        document.getElementById(`svgTA-${id}`).textContent =
+          document.getElementById(`inTA-${id}`).value || "\u00A0";
+        document.getElementById(`svgA-${id}`).textContent =
+          document.getElementById(`inA-${id}`).value || "\u00A0";
+        document.getElementById(`svgTB-${id}`).textContent =
+          document.getElementById(`inTB-${id}`).value || "\u00A0";
       }
 
       function removeCard(id) {
