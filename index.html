@@ -218,10 +218,23 @@
 
       /* ── Print ── */
       @media print {
+        /* A4 = 210mm × 297mm
+           Full SVG (label + 10pt crop margins): 241.1pt = 85.05mm wide, 91.86pt = 32.41mm tall
+           Label content inside: 221.1pt = 78mm wide
+           2 columns → side margin: (210 - 2×85.05) / 2 = 19.95mm
+           8 rows    → top margin: (297 - 8×32.41) / 2 = 18.86mm          */
+        @page {
+          size: A4;
+          margin: 18.86mm 19.95mm;
+        }
+
+        html,
         body {
           background: white;
           padding: 0;
+          margin: 0;
           display: block;
+          width: auto;
         }
         header,
         .print-bar,
@@ -231,13 +244,20 @@
           display: none !important;
         }
         .label-grid {
-          max-width: none;
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
           gap: 0;
+          max-width: none;
+          width: 100%;
         }
         .label-card {
           container-type: normal; /* disable cqw in print */
+          break-inside: avoid;
         }
         .label-wrap svg {
+          display: block;
+          width: 100%;
+          height: auto;
           box-shadow: none;
         }
         /* Restore SVG text visibility for printing */
