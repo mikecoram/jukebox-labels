@@ -26,7 +26,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 48px;
+        gap: 36px;
         padding: 48px 24px 64px;
       }
 
@@ -46,181 +46,139 @@
         font-size: 0.9rem;
       }
 
-      .form-panel {
-        background: #261e16;
-        border: 1px solid #4a3820;
-        border-radius: 14px;
-        padding: 32px 36px;
-        width: 100%;
-        max-width: 440px;
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-        box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6);
-      }
-      .field {
-        display: flex;
-        flex-direction: column;
-        gap: 6px;
-        flex: 1;
-        min-width: 0;
-      }
-      .field label {
-        font-size: 0.72rem;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.12em;
-        color: #c5a85a;
+      /* ── Toolbar ── */
+      .toolbar {
         display: flex;
         align-items: center;
-        gap: 6px;
-      }
-      .badge {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 18px;
-        height: 18px;
-        border-radius: 50%;
-        font-size: 0.65rem;
-        font-weight: 700;
-      }
-      .badge-a {
-        background: #c5a85a;
-        color: #1c1410;
-      }
-      .badge-b {
-        background: #009084;
-        color: white;
-      }
-      .field input {
-        background: #1c1410;
-        border: 1px solid #4a3820;
-        border-radius: 8px;
-        color: #f0e0c0;
-        padding: 11px 14px;
-        font-size: 1rem;
-        font-family: "EB Garamond", Georgia, serif;
-        outline: none;
-        transition:
-          border-color 0.2s,
-          box-shadow 0.2s;
+        justify-content: space-between;
         width: 100%;
-        box-sizing: border-box;
+        max-width: min(1200px, calc(100vw - 48px));
       }
-      .field input::placeholder {
-        color: #5a4830;
-      }
-      .field input:focus {
-        border-color: #c5a85a;
-        box-shadow: 0 0 0 3px rgba(197, 168, 90, 0.15);
-      }
-      .field-row {
-        display: flex;
-        gap: 14px;
-      }
-
-      .btn-generate {
+      .btn-add {
         background: linear-gradient(135deg, #c5a85a, #e0c878);
         border: none;
         border-radius: 8px;
-        padding: 13px 20px;
+        padding: 11px 22px;
         font-size: 0.88rem;
         font-weight: 700;
         letter-spacing: 0.1em;
         text-transform: uppercase;
         cursor: pointer;
         color: #1c1410;
-        transition:
-          opacity 0.2s,
-          transform 0.1s;
+        transition: opacity 0.2s, transform 0.1s;
       }
-      .btn-generate:hover {
-        opacity: 0.9;
-      }
-      .btn-generate:active {
-        transform: scale(0.98);
-      }
+      .btn-add:hover { opacity: 0.9; }
+      .btn-add:active { transform: scale(0.98); }
 
-      .staged-section {
-        width: 100%;
-        max-width: min(1200px, calc(100vw - 48px));
-        display: none;
-        flex-direction: column;
-        gap: 20px;
-      }
-      .staged-section.visible {
-        display: flex;
-      }
-      .staged-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-      }
-      .staged-title {
-        font-size: 0.72rem;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.12em;
-        color: #9a8870;
-      }
       .btn-print {
         background: transparent;
         border: 1px solid #4a3820;
         border-radius: 8px;
-        padding: 8px 20px;
+        padding: 10px 20px;
         font-size: 0.82rem;
         font-weight: 600;
         letter-spacing: 0.08em;
         text-transform: uppercase;
         cursor: pointer;
         color: #9a8870;
-        transition:
-          border-color 0.2s,
-          color 0.2s;
+        transition: border-color 0.2s, color 0.2s;
       }
       .btn-print:hover {
         border-color: #c5a85a;
         color: #c5a85a;
       }
-      .staged-grid {
+
+      /* ── Label grid ── */
+      .label-grid {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        gap: 24px;
+        gap: 32px;
         width: 100%;
+        max-width: min(1200px, calc(100vw - 48px));
       }
       @media (max-width: 640px) {
-        .staged-grid {
-          grid-template-columns: 1fr;
-        }
+        .label-grid { grid-template-columns: 1fr; }
       }
-      .staged-card svg {
+
+      /* ── Individual card ── */
+      .label-card {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
+
+      .card-controls {
+        background: #261e16;
+        border: 1px solid #4a3820;
+        border-bottom: none;
+        border-radius: 10px 10px 0 0;
+        padding: 10px 12px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .card-fields {
+        display: flex;
+        flex: 1;
+        gap: 6px;
+        min-width: 0;
+      }
+      .card-input {
+        background: #1c1410;
+        border: 1px solid #3a2c1c;
+        border-radius: 6px;
+        color: #f0e0c0;
+        padding: 6px 10px;
+        font-size: 0.9rem;
+        font-family: "EB Garamond", Georgia, serif;
+        outline: none;
+        flex: 1;
+        min-width: 0;
+        transition: border-color 0.15s;
+      }
+      .card-input::placeholder { color: #5a4830; }
+      .card-input:focus { border-color: #c5a85a; }
+      .card-input.artist { font-weight: 700; flex: 1.4; }
+
+      .btn-remove {
+        background: transparent;
+        border: 1px solid #3a2c1c;
+        border-radius: 6px;
+        color: #6a5840;
+        cursor: pointer;
+        padding: 5px 9px;
+        font-size: 0.8rem;
+        line-height: 1;
+        flex-shrink: 0;
+        transition: border-color 0.15s, color 0.15s;
+      }
+      .btn-remove:hover {
+        border-color: #a04030;
+        color: #c05040;
+      }
+
+      .label-card svg {
         width: 100%;
         height: auto;
         display: block;
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
       }
 
+      /* ── Print ── */
       @media print {
         body {
           background: white;
           padding: 0;
           display: block;
         }
-        header,
-        .form-panel,
-        .staged-header {
+        header, .toolbar, .card-controls {
           display: none !important;
         }
-        .staged-section {
-          display: block !important;
-          width: 100%;
+        .label-grid {
           max-width: none;
-        }
-        .staged-grid {
           gap: 0;
         }
-        .staged-card svg {
+        .label-card svg {
           box-shadow: none;
         }
       }
@@ -229,76 +187,28 @@
   <body>
     <header>
       <h1>Doug's Jukebox</h1>
-      <p>Enter track details below to create your label</p>
+      <p>Add labels below, edit them directly, then print</p>
     </header>
 
-    <div class="form-panel">
-      <div class="field">
-        <label>Artist / Band</label>
-        <input
-          type="text"
-          id="inputArtist"
-          placeholder="e.g. Frank Sinatra"
-          autocomplete="off"
-        />
-      </div>
-      <div class="field-row">
-        <div class="field">
-          <label><span class="badge badge-a">A</span> Track</label>
-          <input
-            type="text"
-            id="inputTrackA"
-            placeholder="e.g. My Way"
-            autocomplete="off"
-          />
-        </div>
-        <div class="field">
-          <label><span class="badge badge-b">B</span> Track</label>
-          <input
-            type="text"
-            id="inputTrackB"
-            placeholder="e.g. New York"
-            autocomplete="off"
-          />
-        </div>
-      </div>
-      <button class="btn-generate" onclick="stageLabel()">
-        Add Label
-      </button>
+    <div class="toolbar">
+      <button class="btn-add" onclick="addLabel()">+ Add Label</button>
+      <button class="btn-print" onclick="window.print()">&#128438;&nbsp; Print</button>
     </div>
 
-    <section class="staged-section" id="stagedSection">
-      <div class="staged-header">
-        <span class="staged-title">Labels</span>
-        <button class="btn-print" onclick="window.print()">
-          &#128438;&nbsp; Print
-        </button>
-      </div>
-      <div class="staged-grid" id="stagedGrid"></div>
-    </section>
+    <div class="label-grid" id="labelGrid"></div>
 
     <script>
-      let stagedLabels = [];
-      let labelCounter = 0;
+      let uid = 0;
 
-      function makeLabelSvg(artist, trackA, trackB, uid) {
-        const esc = (s) =>
-          String(s)
-            .replace(/&/g, "&amp;")
-            .replace(/</g, "&lt;")
-            .replace(/>/g, "&gt;");
-        const a = esc(artist) || "\u00A0";
-        const ta = esc(trackA) || "\u00A0";
-        const tb = esc(trackB) || "\u00A0";
-        const stroke6 = 'fill="none" stroke-width="0.6"';
-        const oct =
-          "18.47 32.39 18.47 39.47 23.42 44.43 197.71 44.43 202.72 39.47 202.72 32.39 197.82 27.42 23.43 27.42 18.47 32.39";
+      function makeLabelSvg(id) {
+        const s6 = 'fill="none" stroke-width="0.6"';
+        const oct = "18.47 32.39 18.47 39.47 23.42 44.43 197.71 44.43 202.72 39.47 202.72 32.39 197.82 27.42 23.43 27.42 18.47 32.39";
         return `<svg viewBox="-10 -10 241.1 91.86" xmlns="http://www.w3.org/2000/svg">
           <defs>
-            <clipPath id="c0-${uid}"><rect fill="none" width="221.1" height="71.86"/></clipPath>
-            <clipPath id="c1-${uid}"><rect fill="none" width="221.1" height="71.86"/></clipPath>
-            <clipPath id="c2-${uid}"><rect fill="none" x="9.17" y="-.87" width="202.85" height="46.61"/></clipPath>
-            <clipPath id="c3-${uid}"><rect fill="none" x="9.17" y="18.96" width="202.85" height="26.78"/></clipPath>
+            <clipPath id="c0-${id}"><rect fill="none" width="221.1" height="71.86"/></clipPath>
+            <clipPath id="c1-${id}"><rect fill="none" width="221.1" height="71.86"/></clipPath>
+            <clipPath id="c2-${id}"><rect fill="none" x="9.17" y="-.87" width="202.85" height="46.61"/></clipPath>
+            <clipPath id="c3-${id}"><rect fill="none" x="9.17" y="18.96" width="202.85" height="26.78"/></clipPath>
           </defs>
           <g stroke="#777" stroke-width="0.35" fill="none">
             <line x1="-8" y1="0" x2="-2" y2="0"/><line x1="0" y1="-8" x2="0" y2="-2"/>
@@ -306,61 +216,70 @@
             <line x1="-8" y1="71.86" x2="-2" y2="71.86"/><line x1="0" y1="73.86" x2="0" y2="79.86"/>
             <line x1="223.1" y1="71.86" x2="229.1" y2="71.86"/><line x1="221.1" y1="73.86" x2="221.1" y2="79.86"/>
           </g>
-          <g clip-path="url(#c0-${uid})">
+          <g clip-path="url(#c0-${id})">
             <rect fill="#ffedcb" width="221.1" height="71.86"/>
-            <g clip-path="url(#c1-${uid})">
-              <line ${stroke6} stroke="#e4ae28" y1="4.22" x2="221.1" y2="4.22"/>
-              <line ${stroke6} stroke="#e4ae28" y1="5.89" x2="221.1" y2="5.89"/>
-              <line ${stroke6} stroke="#e4ae28" y1="7.57" x2="221.1" y2="7.57"/>
-              <line ${stroke6} stroke="#e4ae28" y1="64.25" x2="221.1" y2="64.25"/>
-              <line ${stroke6} stroke="#e4ae28" y1="65.92" x2="221.1" y2="65.92"/>
-              <line ${stroke6} stroke="#e4ae28" y1="67.6" x2="221.1" y2="67.6"/>
-              <g opacity="0.25" clip-path="url(#c2-${uid})">
+            <g clip-path="url(#c1-${id})">
+              <line ${s6} stroke="#e4ae28" y1="4.22" x2="221.1" y2="4.22"/>
+              <line ${s6} stroke="#e4ae28" y1="5.89" x2="221.1" y2="5.89"/>
+              <line ${s6} stroke="#e4ae28" y1="7.57" x2="221.1" y2="7.57"/>
+              <line ${s6} stroke="#e4ae28" y1="64.25" x2="221.1" y2="64.25"/>
+              <line ${s6} stroke="#e4ae28" y1="65.92" x2="221.1" y2="65.92"/>
+              <line ${s6} stroke="#e4ae28" y1="67.6" x2="221.1" y2="67.6"/>
+              <g opacity="0.25" clip-path="url(#c2-${id})">
                 <polygon fill="#fff" points="${oct}"/>
-                <polygon ${stroke6} stroke="#fff" points="${oct}"/>
+                <polygon ${s6} stroke="#fff" points="${oct}"/>
               </g>
-              <g opacity="0.25" clip-path="url(#c3-${uid})">
+              <g opacity="0.25" clip-path="url(#c3-${id})">
                 <polygon fill="#009084" points="${oct}"/>
-                <polygon ${stroke6} stroke="#009084" points="${oct}"/>
+                <polygon ${s6} stroke="#009084" points="${oct}"/>
               </g>
-              <line ${stroke6} stroke="#009084" x1="203.02" y1="32.73" x2="221.1" y2="32.73"/>
-              <line ${stroke6} stroke="#009084" x1="203.02" y1="34.39" x2="221.1" y2="34.39"/>
-              <line ${stroke6} stroke="#009084" x1="203.02" y1="36.06" x2="221.1" y2="36.06"/>
-              <line ${stroke6} stroke="#009084" x1="203.02" y1="37.72" x2="221.1" y2="37.72"/>
-              <line ${stroke6} stroke="#009084" x1="203.02" y1="39.38" x2="221.1" y2="39.38"/>
-              <line ${stroke6} stroke="#009084" x1="0" y1="32.6" x2="18.17" y2="32.6"/>
-              <line ${stroke6} stroke="#009084" x1="0" y1="34.27" x2="18.17" y2="34.27"/>
-              <line ${stroke6} stroke="#009084" x1="0" y1="35.93" x2="18.17" y2="35.93"/>
-              <line ${stroke6} stroke="#009084" x1="0" y1="37.6" x2="18.17" y2="37.6"/>
-              <line ${stroke6} stroke="#009084" x1="0" y1="39.26" x2="18.17" y2="39.26"/>
+              <line ${s6} stroke="#009084" x1="203.02" y1="32.73" x2="221.1" y2="32.73"/>
+              <line ${s6} stroke="#009084" x1="203.02" y1="34.39" x2="221.1" y2="34.39"/>
+              <line ${s6} stroke="#009084" x1="203.02" y1="36.06" x2="221.1" y2="36.06"/>
+              <line ${s6} stroke="#009084" x1="203.02" y1="37.72" x2="221.1" y2="37.72"/>
+              <line ${s6} stroke="#009084" x1="203.02" y1="39.38" x2="221.1" y2="39.38"/>
+              <line ${s6} stroke="#009084" x1="0" y1="32.6" x2="18.17" y2="32.6"/>
+              <line ${s6} stroke="#009084" x1="0" y1="34.27" x2="18.17" y2="34.27"/>
+              <line ${s6} stroke="#009084" x1="0" y1="35.93" x2="18.17" y2="35.93"/>
+              <line ${s6} stroke="#009084" x1="0" y1="37.6" x2="18.17" y2="37.6"/>
+              <line ${s6} stroke="#009084" x1="0" y1="39.26" x2="18.17" y2="39.26"/>
             </g>
-            <polygon ${stroke6} stroke="#009084" points="${oct}"/>
+            <polygon ${s6} stroke="#009084" points="${oct}"/>
           </g>
-          <text x="110.55" y="21" text-anchor="middle" font-family="'EB Garamond', Georgia, serif" font-style="italic" font-size="10" fill="#2a1a0e">${ta}</text>
-          <text x="110.55" y="39.5" text-anchor="middle" font-family="'EB Garamond', Georgia, serif" font-weight="700" font-size="11" fill="#2a1a0e">${a}</text>
-          <text x="110.55" y="57.5" text-anchor="middle" font-family="'EB Garamond', Georgia, serif" font-style="italic" font-size="10" fill="#2a1a0e">${tb}</text>
+          <text id="svgTA-${id}" x="110.55" y="21" text-anchor="middle" font-family="'EB Garamond',Georgia,serif" font-style="italic" font-size="10" fill="#2a1a0e">\u00A0</text>
+          <text id="svgA-${id}"  x="110.55" y="39.5" text-anchor="middle" font-family="'EB Garamond',Georgia,serif" font-weight="700" font-size="11" fill="#2a1a0e">\u00A0</text>
+          <text id="svgTB-${id}" x="110.55" y="57.5" text-anchor="middle" font-family="'EB Garamond',Georgia,serif" font-style="italic" font-size="10" fill="#2a1a0e">\u00A0</text>
         </svg>`;
       }
 
-      function stageLabel() {
-        const artist = document.getElementById("inputArtist").value.trim();
-        const trackA = document.getElementById("inputTrackA").value.trim();
-        const trackB = document.getElementById("inputTrackB").value.trim();
-
-        labelCounter++;
-        stagedLabels.push({ id: labelCounter, artist, trackA, trackB });
-
-        const grid = document.getElementById("stagedGrid");
-        const section = document.getElementById("stagedSection");
-        grid.innerHTML += `<div class="staged-card">${makeLabelSvg(artist, trackA, trackB, labelCounter)}</div>`;
-        section.classList.add("visible");
+      function addLabel() {
+        const id = ++uid;
+        const card = document.createElement("div");
+        card.className = "label-card";
+        card.dataset.id = id;
+        card.innerHTML = `
+          <div class="card-controls">
+            <div class="card-fields">
+              <input class="card-input" id="inTA-${id}" placeholder="A side" oninput="sync(${id})">
+              <input class="card-input artist" id="inA-${id}" placeholder="Artist / Band" oninput="sync(${id})">
+              <input class="card-input" id="inTB-${id}" placeholder="B side" oninput="sync(${id})">
+            </div>
+            <button class="btn-remove" onclick="removeCard(${id})" title="Remove">✕</button>
+          </div>
+          ${makeLabelSvg(id)}`;
+        document.getElementById("labelGrid").appendChild(card);
+        card.querySelector(".artist").focus();
       }
 
-      ["inputArtist", "inputTrackA", "inputTrackB"].forEach((id) => {
-        document.getElementById(id).addEventListener("keydown", (e) => {
-          if (e.key === "Enter") stageLabel();
-        });
-      });
+      function sync(id) {
+        document.getElementById(`svgTA-${id}`).textContent = document.getElementById(`inTA-${id}`).value || "\u00A0";
+        document.getElementById(`svgA-${id}`).textContent  = document.getElementById(`inA-${id}`).value  || "\u00A0";
+        document.getElementById(`svgTB-${id}`).textContent = document.getElementById(`inTB-${id}`).value || "\u00A0";
+      }
+
+      function removeCard(id) {
+        document.querySelector(`.label-card[data-id="${id}"]`).remove();
+      }
     </script>
   </body>
 </html>
