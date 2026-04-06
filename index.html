@@ -27,7 +27,7 @@
         flex-direction: column;
         align-items: center;
         gap: 36px;
-        padding: 48px 24px 64px;
+        padding: 48px 24px calc(80px + env(safe-area-inset-bottom));
       }
 
       header {
@@ -46,31 +46,35 @@
         font-size: 0.9rem;
       }
 
-      /* ── Toolbar ── */
-      .toolbar {
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
-        width: 100%;
-        max-width: min(1200px, calc(100vw - 48px));
+      /* ── Print bar ── */
+      .print-bar {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 12px 24px env(safe-area-inset-bottom);
+        background: linear-gradient(to top, #1c1410 60%, rgba(28,20,16,0));
+        z-index: 10;
       }
-
       .btn-print {
+        display: block;
+        width: 100%;
         background: transparent;
         border: 1px solid #4a3820;
-        border-radius: 8px;
-        padding: 10px 20px;
-        font-size: 0.82rem;
+        border-radius: 10px;
+        padding: 16px;
+        font-size: 0.88rem;
         font-weight: 600;
-        letter-spacing: 0.08em;
+        letter-spacing: 0.1em;
         text-transform: uppercase;
         cursor: pointer;
         color: #9a8870;
-        transition: border-color 0.2s, color 0.2s;
+        transition: border-color 0.2s, color 0.2s, background-color 0.2s;
       }
       .btn-print:hover {
         border-color: #c5a85a;
         color: #c5a85a;
+        background-color: rgba(197, 168, 90, 0.05);
       }
 
       /* ── Label grid ── */
@@ -175,7 +179,7 @@
           padding: 0;
           display: block;
         }
-        header, .toolbar, .card-controls, .add-placeholder {
+        header, .print-bar, .card-controls, .add-placeholder {
           display: none !important;
         }
         .label-grid {
@@ -194,7 +198,7 @@
       <p>Add labels below, edit them directly, then print</p>
     </header>
 
-    <div class="toolbar">
+    <div class="print-bar">
       <button class="btn-print" onclick="window.print()">&#128438;&nbsp; Print</button>
     </div>
 
