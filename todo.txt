@@ -1,8 +1,8 @@
 Implement each of these TODOs, commit after verifying that each one works, remove item from todo list as its done
 
-Allow multiple labels to be created and staged, display labels 2 per row
+Allow multiple labels to be created and staged, display staged label 2 per row if screen is wide enough, if not ensure it does not go wider than the viewport width
 Allow staged labels to be removed and edited
 When printing, lay out labels in 2x8 grid per A4 page
 Fix crop lines so that they match "label design.png"
-Ensure site is usable on mobile devices, ipad size and phone size
+Ensure site is usable on mobile devices, ipad size and phone size, if it's already fine, don't change anything
 Persist staged labels using local storage (prevent accidental reload losing all progress)
