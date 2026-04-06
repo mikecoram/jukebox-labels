@@ -240,24 +240,21 @@
         }
         header,
         .form-panel,
-        .preview-label-text,
-        .btn-print {
+        #previewSection,
+        .staged-title {
           display: none !important;
         }
-        .preview-section {
-          opacity: 1;
-          transform: none;
-          pointer-events: all;
+        .staged-section {
+          display: block !important;
+          width: 100%;
+          max-width: none;
         }
-        .label-paper {
-          background: white;
+        .staged-grid {
+          gap: 0;
+        }
+        .staged-card .label-paper {
           padding: 0;
           box-shadow: none;
-        }
-        /* Print at true physical size — Label.svg is 221.1 × 71.86 pt */
-        #labelSvg {
-          width: 221.1pt;
-          height: 71.86pt;
         }
       }
     </style>
