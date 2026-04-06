@@ -1,4 +1,4 @@
-Implement each of these TODOs, commit after verifying that each one works
+Implement each of these TODOs, commit after verifying that each one works, remove item from todo list as its done
 
 Allow multiple labels to be created and staged, display labels 2 per row
 Allow staged labels to be removed and edited
