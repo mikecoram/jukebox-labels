@@ -164,6 +164,11 @@
         border-color: #a04030;
         color: #c05040;
       }
+      .btn-remove[data-armed] {
+        border-color: #c05040;
+        color: #c05040;
+        background-color: rgba(192, 80, 64, 0.12);
+      }
 
       .label-card svg {
         width: 100%;
@@ -321,7 +326,18 @@
       }
 
       function removeCard(id) {
-        document.querySelector(`.label-card[data-id="${id}"]`).remove();
+        const card = document.querySelector(`.label-card[data-id="${id}"]`);
+        const btn = card.querySelector(".btn-remove");
+        if (btn.dataset.armed) {
+          clearTimeout(+btn.dataset.armed);
+          card.remove();
+        } else {
+          btn.textContent = "✕?";
+          btn.dataset.armed = setTimeout(() => {
+            btn.textContent = "✕";
+            delete btn.dataset.armed;
+          }, 2000);
+        }
       }
     </script>
   </body>
