@@ -1,0 +1,5 @@
+Allow multiple labels to be created and staged
+Allow staged labels to be removed and edited
+When printing, lay out labels in 2x8 grid per page
+Persist staged labels using local storage (prevent accidental reload losing all progress)
+Fix crop lines so that they match "label design.png"
