@@ -50,25 +50,10 @@
       .toolbar {
         display: flex;
         align-items: center;
-        justify-content: space-between;
+        justify-content: flex-end;
         width: 100%;
         max-width: min(1200px, calc(100vw - 48px));
       }
-      .btn-add {
-        background: linear-gradient(135deg, #c5a85a, #e0c878);
-        border: none;
-        border-radius: 8px;
-        padding: 11px 22px;
-        font-size: 0.88rem;
-        font-weight: 700;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-        cursor: pointer;
-        color: #1c1410;
-        transition: opacity 0.2s, transform 0.1s;
-      }
-      .btn-add:hover { opacity: 0.9; }
-      .btn-add:active { transform: scale(0.98); }
 
       .btn-print {
         background: transparent;
@@ -164,6 +149,25 @@
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
       }
 
+      /* ── Add placeholder ── */
+      .add-placeholder {
+        aspect-ratio: 241.1 / 91.86;
+        border: 2px dashed #3a2c1c;
+        border-radius: 3px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #3a2c1c;
+        font-size: 2rem;
+        transition: border-color 0.2s, color 0.2s, background-color 0.2s;
+      }
+      .add-placeholder:hover {
+        border-color: #8a6830;
+        color: #8a6830;
+        background-color: rgba(197, 168, 90, 0.05);
+      }
+
       /* ── Print ── */
       @media print {
         body {
@@ -171,7 +175,7 @@
           padding: 0;
           display: block;
         }
-        header, .toolbar, .card-controls {
+        header, .toolbar, .card-controls, .add-placeholder {
           display: none !important;
         }
         .label-grid {
@@ -191,11 +195,12 @@
     </header>
 
     <div class="toolbar">
-      <button class="btn-add" onclick="addLabel()">+ Add Label</button>
       <button class="btn-print" onclick="window.print()">&#128438;&nbsp; Print</button>
     </div>
 
-    <div class="label-grid" id="labelGrid"></div>
+    <div class="label-grid" id="labelGrid">
+      <div class="add-placeholder" id="addPlaceholder" onclick="addLabel()">+</div>
+    </div>
 
     <script>
       let uid = 0;
@@ -267,7 +272,8 @@
             <button class="btn-remove" onclick="removeCard(${id})" title="Remove">✕</button>
           </div>
           ${makeLabelSvg(id)}`;
-        document.getElementById("labelGrid").appendChild(card);
+        const grid = document.getElementById("labelGrid");
+        grid.insertBefore(card, document.getElementById("addPlaceholder"));
         card.querySelector(".artist").focus();
       }
 
