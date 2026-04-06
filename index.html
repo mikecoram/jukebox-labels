@@ -1,0 +1,481 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jukebox Label Generator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: system-ui, sans-serif;
+        background: #1c1410;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 48px;
+        padding: 48px 24px 64px;
+      }
+
+      header {
+        text-align: center;
+      }
+      header h1 {
+        font-size: 2rem;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        color: #f5d87a;
+        text-transform: uppercase;
+      }
+      header p {
+        margin-top: 6px;
+        color: #9a8870;
+        font-size: 0.9rem;
+      }
+
+      .form-panel {
+        background: #261e16;
+        border: 1px solid #4a3820;
+        border-radius: 14px;
+        padding: 32px 36px;
+        width: 100%;
+        max-width: 440px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6);
+      }
+      .field {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .field label {
+        font-size: 0.72rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: #c5a85a;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        font-size: 0.65rem;
+        font-weight: 700;
+      }
+      .badge-a {
+        background: #c5a85a;
+        color: #1c1410;
+      }
+      .badge-b {
+        background: #3a8878;
+        color: white;
+      }
+      .field input {
+        background: #1c1410;
+        border: 1px solid #4a3820;
+        border-radius: 8px;
+        color: #f0e0c0;
+        padding: 11px 14px;
+        font-size: 1rem;
+        font-family: "EB Garamond", Georgia, serif;
+        outline: none;
+        transition:
+          border-color 0.2s,
+          box-shadow 0.2s;
+      }
+      .field input::placeholder {
+        color: #5a4830;
+      }
+      .field input:focus {
+        border-color: #c5a85a;
+        box-shadow: 0 0 0 3px rgba(197, 168, 90, 0.15);
+      }
+      .field-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+      }
+
+      .btn-generate {
+        background: linear-gradient(135deg, #c5a85a, #e0c878);
+        border: none;
+        border-radius: 8px;
+        padding: 13px 20px;
+        font-size: 0.88rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        cursor: pointer;
+        color: #1c1410;
+        transition:
+          opacity 0.2s,
+          transform 0.1s;
+      }
+      .btn-generate:hover {
+        opacity: 0.9;
+      }
+      .btn-generate:active {
+        transform: scale(0.98);
+      }
+
+      .preview-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        opacity: 0;
+        transform: translateY(16px);
+        transition:
+          opacity 0.4s ease,
+          transform 0.4s ease;
+        pointer-events: none;
+      }
+      .preview-section.visible {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: all;
+      }
+      .preview-label-text {
+        font-size: 0.72rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: #9a8870;
+      }
+
+      /* White paper surround */
+      .label-paper {
+        background: white;
+        padding: 32px 40px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+      }
+
+      .btn-print {
+        background: transparent;
+        border: 1px solid #4a3820;
+        border-radius: 8px;
+        padding: 10px 24px;
+        font-size: 0.82rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        cursor: pointer;
+        color: #9a8870;
+        transition:
+          border-color 0.2s,
+          color 0.2s;
+      }
+      .btn-print:hover {
+        border-color: #c5a85a;
+        color: #c5a85a;
+      }
+
+      @media print {
+        body {
+          background: white;
+          padding: 0;
+          display: block;
+        }
+        header,
+        .form-panel,
+        .preview-label-text,
+        .btn-print {
+          display: none !important;
+        }
+        .preview-section {
+          opacity: 1;
+          transform: none;
+          pointer-events: all;
+        }
+        .label-paper {
+          background: white;
+          padding: 0;
+          box-shadow: none;
+        }
+        #labelSvg {
+          width: 228.2pt;
+          height: 78pt;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Jukebox Label Generator</h1>
+      <p>Enter track details below to create your label</p>
+    </header>
+
+    <div class="form-panel">
+      <div class="field">
+        <label>Artist / Band</label>
+        <input
+          type="text"
+          id="inputArtist"
+          placeholder="e.g. Frank Sinatra"
+          autocomplete="off"
+          value="Ventures"
+        />
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label><span class="badge badge-a">A</span> Track</label>
+          <input
+            type="text"
+            id="inputTrackA"
+            placeholder="e.g. My Way"
+            autocomplete="off"
+            value="Blue Moon"
+          />
+        </div>
+        <div class="field">
+          <label><span class="badge badge-b">B</span> Track</label>
+          <input
+            type="text"
+            id="inputTrackB"
+            placeholder="e.g. New York"
+            autocomplete="off"
+            value="Lady Of Spain"
+          />
+        </div>
+      </div>
+      <button class="btn-generate" onclick="generateLabel()">
+        Generate Label
+      </button>
+    </div>
+
+    <div class="preview-section" id="previewSection">
+      <span class="preview-label-text">Label Preview</span>
+      <div class="label-paper">
+        <!--
+      SVG label — coordinates in PDF points matching original design exactly.
+      Label rect: 228.2 × 78 pt
+      ViewBox adds 14 pt margin on all sides for crop marks.
+
+      Measured geometry (label-relative, y increases downward):
+        Octagon top/bottom:    y = 30.5 / 47.5   (centre y = 39.0)
+        Octagon left chamfer:  (21.9,35.5)→(26.9,30.5) and (21.9,42.5)→(26.9,47.5)
+        Octagon right chamfer: mirror at x = 206.2 / 201.3
+        Stripe bands:          top y ≈ 4–12 pt, bottom y ≈ 66–74 pt
+    -->
+        <svg
+          id="labelSvg"
+          viewBox="-14 -14 256.2 106"
+          width="571"
+          height="236"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <!-- ════ Crop / registration marks (outside label) ════ -->
+          <g stroke="#666" stroke-width="0.4" fill="none">
+            <line x1="-12" y1="0" x2="-3" y2="0" />
+            <line x1="0" y1="-12" x2="0" y2="-3" />
+            <line x1="230.2" y1="0" x2="240.2" y2="0" />
+            <line x1="228.2" y1="-12" x2="228.2" y2="-3" />
+            <line x1="-12" y1="78" x2="-3" y2="78" />
+            <line x1="0" y1="81" x2="0" y2="90" />
+            <line x1="230.2" y1="78" x2="240.2" y2="78" />
+            <line x1="228.2" y1="81" x2="228.2" y2="90" />
+          </g>
+
+          <!-- ════ Label background ════ -->
+          <rect x="0" y="0" width="228.2" height="78" fill="#FFF5D0" />
+
+          <!-- ════ Outer amber border rectangle ════ -->
+          <rect
+            x="0.5"
+            y="0.5"
+            width="227.2"
+            height="77"
+            fill="none"
+            stroke="#B88828"
+            stroke-width="0.6"
+          />
+
+          <!--
+        ════ Top stripe band ════
+        From the PDF: a mix of amber and teal lines near the top edge.
+        2 amber lines (outer) + 3 teal lines (inner), all full-width.
+        Amber lines have vertical end-caps at each side forming corner brackets.
+      -->
+          <!-- Amber stripes -->
+          <g stroke="#C09030" stroke-width="0.65" fill="none">
+            <line x1="0.5" y1="4.5" x2="227.7" y2="4.5" />
+            <line x1="0.5" y1="6.5" x2="227.7" y2="6.5" />
+          </g>
+          <!-- Teal stripes -->
+          <g stroke="#3A8878" stroke-width="0.55" fill="none">
+            <line x1="0.5" y1="8.5" x2="227.7" y2="8.5" />
+            <line x1="0.5" y1="10.0" x2="227.7" y2="10.0" />
+            <line x1="0.5" y1="11.5" x2="227.7" y2="11.5" />
+          </g>
+          <!-- Corner bracket verticals (top) -->
+          <g stroke="#C09030" stroke-width="0.65" fill="none">
+            <line x1="0.5" y1="4.5" x2="0.5" y2="11.5" />
+            <line x1="227.7" y1="4.5" x2="227.7" y2="11.5" />
+          </g>
+
+          <!--
+        ════ Bottom stripe band ════
+        Mirror of top: teal lines (inner/upper) + amber lines (outer/lower).
+      -->
+          <!-- Teal stripes -->
+          <g stroke="#3A8878" stroke-width="0.55" fill="none">
+            <line x1="0.5" y1="66.5" x2="227.7" y2="66.5" />
+            <line x1="0.5" y1="68.0" x2="227.7" y2="68.0" />
+            <line x1="0.5" y1="69.5" x2="227.7" y2="69.5" />
+          </g>
+          <!-- Amber stripes -->
+          <g stroke="#C09030" stroke-width="0.65" fill="none">
+            <line x1="0.5" y1="71.5" x2="227.7" y2="71.5" />
+            <line x1="0.5" y1="73.5" x2="227.7" y2="73.5" />
+          </g>
+          <!-- Corner bracket verticals (bottom) -->
+          <g stroke="#C09030" stroke-width="0.65" fill="none">
+            <line x1="0.5" y1="66.5" x2="0.5" y2="73.5" />
+            <line x1="227.7" y1="66.5" x2="227.7" y2="73.5" />
+          </g>
+
+          <!--
+        ════ Left fan lines ════
+        4 teal lines radiate from a 3pt-wide cluster at the left label edge
+        to the full 17pt height of the octagon at its boundary.
+
+        Edge (x=0.5) y-values: 37.5, 38.5, 39.5, 40.5  (spread = 3pt)
+        Octagon boundary targets:
+          (26.9, 30.5)  top chamfer corner
+          (21.9, 35.5)  top of straight left edge
+          (21.9, 42.5)  bottom of straight left edge
+          (26.9, 47.5)  bottom chamfer corner
+      -->
+          <g stroke="#3A8878" stroke-width="0.65" fill="none">
+            <line x1="0.5" y1="37.5" x2="26.9" y2="30.5" />
+            <line x1="0.5" y1="38.5" x2="21.9" y2="35.5" />
+            <line x1="0.5" y1="39.5" x2="21.9" y2="42.5" />
+            <line x1="0.5" y1="40.5" x2="26.9" y2="47.5" />
+            <!-- Vertical end-cap -->
+            <line x1="0.5" y1="37.5" x2="0.5" y2="40.5" />
+          </g>
+
+          <!-- ════ Right fan lines (mirrored) ════ -->
+          <g stroke="#3A8878" stroke-width="0.65" fill="none">
+            <line x1="227.7" y1="37.5" x2="201.3" y2="30.5" />
+            <line x1="227.7" y1="38.5" x2="206.2" y2="35.5" />
+            <line x1="227.7" y1="39.5" x2="206.2" y2="42.5" />
+            <line x1="227.7" y1="40.5" x2="201.3" y2="47.5" />
+            <!-- Vertical end-cap -->
+            <line x1="227.7" y1="37.5" x2="227.7" y2="40.5" />
+          </g>
+
+          <!--
+        ════ Centre octagon (artist band) ════
+        Filled sage-green with teal border.
+        Vertices (label coords, y↓):
+          top edge:    y=30.5  from x=26.9 to x=201.3
+          right edge:  x=206.2 from y=35.5 to y=42.5
+          bottom edge: y=47.5  from x=201.3 to x=26.9
+          left edge:   x=21.9  from y=42.5 to y=35.5
+          corner cuts: 5pt diagonal chamfers
+      -->
+          <path
+            d="M 26.9,30.5
+               L 201.3,30.5  L 206.2,35.5
+               L 206.2,42.5  L 201.3,47.5
+               L 26.9,47.5   L 21.9,42.5
+               L 21.9,35.5   Z"
+            fill="#9DC0B0"
+            stroke="#3A8878"
+            stroke-width="1.0"
+          />
+
+          <!-- ════ Track A — italic, above band ════ -->
+          <text
+            id="svgTrackA"
+            x="114.1"
+            y="25.5"
+            text-anchor="middle"
+            font-family="'EB Garamond', Georgia, serif"
+            font-style="italic"
+            font-size="11"
+            fill="#2A2030"
+          ></text>
+
+          <!-- ════ Artist name — bold, inside band ════ -->
+          <text
+            id="svgArtist"
+            x="114.1"
+            y="42.5"
+            text-anchor="middle"
+            font-family="'EB Garamond', Georgia, serif"
+            font-weight="700"
+            font-size="12"
+            fill="#2A2030"
+          ></text>
+
+          <!-- ════ Track B — italic, below band ════ -->
+          <text
+            id="svgTrackB"
+            x="114.1"
+            y="62.5"
+            text-anchor="middle"
+            font-family="'EB Garamond', Georgia, serif"
+            font-style="italic"
+            font-size="11"
+            fill="#2A2030"
+          ></text>
+        </svg>
+      </div>
+      <button class="btn-print" onclick="window.print()">
+        &#128438;&nbsp; Print Label
+      </button>
+    </div>
+
+    <script>
+      function generateLabel() {
+        const artist = document.getElementById("inputArtist").value.trim();
+        const trackA = document.getElementById("inputTrackA").value.trim();
+        const trackB = document.getElementById("inputTrackB").value.trim();
+
+        document.getElementById("svgArtist").textContent = artist || "\u00A0";
+        document.getElementById("svgTrackA").textContent = trackA || "\u00A0";
+        document.getElementById("svgTrackB").textContent = trackB || "\u00A0";
+
+        document.getElementById("previewSection").classList.add("visible");
+      }
+
+      ["inputArtist", "inputTrackA", "inputTrackB"].forEach((id) => {
+        const el = document.getElementById(id);
+        el.addEventListener("input", () => {
+          if (
+            document
+              .getElementById("previewSection")
+              .classList.contains("visible")
+          )
+            generateLabel();
+        });
+        el.addEventListener("keydown", (e) => {
+          if (e.key === "Enter") generateLabel();
+        });
+      });
+    </script>
+  </body>
+</html>
