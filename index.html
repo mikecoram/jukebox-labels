@@ -56,7 +56,7 @@
         bottom: 0;
         left: 0;
         right: 0;
-        padding: 12px 24px env(safe-area-inset-bottom);
+        padding: 12px 24px max(16px, env(safe-area-inset-bottom));
         background: linear-gradient(to top, #1c1410 60%, rgba(28, 20, 16, 0));
         z-index: 10;
       }
@@ -84,97 +84,113 @@
         background-color: rgba(197, 168, 90, 0.05);
       }
 
-      /* ── Label grid ── */
+      /* ── Label grid — always 1 column ── */
       .label-grid {
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: 1fr;
         gap: 32px;
         width: 100%;
-        max-width: min(1200px, calc(100vw - 48px));
-      }
-      @media (max-width: 640px) {
-        .label-grid {
-          grid-template-columns: 1fr;
-        }
+        max-width: min(700px, calc(100vw - 48px));
       }
 
       /* ── Individual card ── */
       .label-card {
-        display: flex;
-        flex-direction: column;
-        gap: 0;
-        min-width: 0; /* prevent grid blowout from input intrinsic size */
+        min-width: 0;
+        container-type: inline-size;
       }
 
-      .card-controls {
-        background: #261e16;
-        border: 1px solid #4a3820;
-        border-bottom: none;
-        border-radius: 10px 10px 0 0;
-        padding: 10px 12px;
-        display: flex;
-        align-items: center;
-        gap: 8px;
+      /* ── Label wrapper (relative anchor for overlays) ── */
+      .label-wrap {
+        position: relative;
       }
-      .card-fields {
-        display: flex;
-        flex: 1;
-        gap: 6px;
-        min-width: 0;
+
+      .label-wrap svg {
+        width: 100%;
+        height: auto;
+        display: block;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
       }
-      .card-input {
-        background: #1c1410;
-        border: 1px solid #3a2c1c;
-        border-radius: 6px;
-        color: #f0e0c0;
-        padding: 6px 10px;
-        font-size: 0.9rem;
-        font-family: "EB Garamond", Georgia, serif;
+
+      /* ── Direct-edit overlays ── */
+      .label-overlays {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+      }
+
+      .label-input {
+        position: absolute;
+        pointer-events: all;
+        left: 10%;
+        width: 80%;
+        padding: 0;
+        line-height: 1;
+        background: transparent;
+        border: none;
+        border-bottom: 1.5px solid transparent;
         outline: none;
-        flex: 1;
-        min-width: 0;
+        text-align: center;
+        font-family: "EB Garamond", Georgia, serif;
+        color: #2a1a0e;
         transition: border-color 0.15s;
       }
-      .card-input::placeholder {
-        color: #5a4830;
+      .label-input::placeholder {
+        color: rgba(42, 26, 14, 0.3);
       }
-      .card-input:focus {
-        border-color: #c5a85a;
-      }
-      .card-input.artist {
-        font-weight: 700;
-        flex: 1.4;
+      .label-input:focus {
+        border-bottom-color: rgba(0, 144, 132, 0.55);
       }
 
+      /* Font sizes scale with label width via container query units:
+         SVG font-size / viewBox-width = pt / 241.1 */
+      .label-input.ta {
+        top: 24%;
+        font-size: 4.15cqw;
+        font-style: italic;
+      }
+      .label-input.artist {
+        top: 43%;
+        font-size: 4.56cqw;
+        font-weight: 700;
+      }
+      .label-input.tb {
+        top: 63%;
+        font-size: 4.15cqw;
+        font-style: italic;
+      }
+
+      /* ── Remove button (top-right corner, reveals on hover) ── */
       .btn-remove {
-        background: transparent;
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        background: rgba(28, 20, 16, 0.75);
         border: 1px solid #3a2c1c;
         border-radius: 6px;
         color: #6a5840;
         cursor: pointer;
-        padding: 5px 9px;
-        font-size: 0.8rem;
+        padding: 4px 8px;
+        font-size: 0.75rem;
         line-height: 1;
-        flex-shrink: 0;
+        opacity: 0;
         transition:
+          opacity 0.15s,
           border-color 0.15s,
-          color 0.15s;
+          color 0.15s,
+          background-color 0.15s;
+      }
+      .label-wrap:hover .btn-remove {
+        opacity: 1;
       }
       .btn-remove:hover {
         border-color: #a04030;
         color: #c05040;
       }
       .btn-remove[data-armed] {
+        opacity: 1;
         border-color: #c05040;
         color: #c05040;
-        background-color: rgba(192, 80, 64, 0.12);
-      }
-
-      .label-card svg {
-        width: 100%;
-        height: auto;
-        display: block;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        background-color: rgba(192, 80, 64, 0.45);
       }
 
       /* ── Add placeholder ── */
@@ -209,7 +225,8 @@
         }
         header,
         .print-bar,
-        .card-controls,
+        .label-overlays,
+        .btn-remove,
         .add-placeholder {
           display: none !important;
         }
@@ -217,8 +234,15 @@
           max-width: none;
           gap: 0;
         }
-        .label-card svg {
+        .label-card {
+          container-type: normal; /* disable cqw in print */
+        }
+        .label-wrap svg {
           box-shadow: none;
+        }
+        /* Restore SVG text visibility for printing */
+        .label-wrap text {
+          fill: #2a1a0e;
         }
       }
     </style>
@@ -226,7 +250,7 @@
   <body>
     <header>
       <h1>Doug's Jukebox</h1>
-      <p>Add labels below then print</p>
+      <p>Click a label to edit · Changes saved automatically</p>
     </header>
 
     <div class="print-bar">
@@ -243,6 +267,15 @@
 
     <script>
       let uid = 0;
+      const STORAGE_KEY = "jukebox-labels-v1";
+
+      function esc(s) {
+        return String(s)
+          .replace(/&/g, "&amp;")
+          .replace(/"/g, "&quot;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;");
+      }
 
       function makeLabelSvg(id) {
         const s6 = 'fill="none" stroke-width="0.6"';
@@ -291,29 +324,33 @@
             </g>
             <polygon ${s6} stroke="#009084" points="${oct}"/>
           </g>
-          <text id="svgTA-${id}" x="110.55" y="21" text-anchor="middle" font-family="'EB Garamond',Georgia,serif" font-style="italic" font-size="10" fill="#2a1a0e">\u00A0</text>
-          <text id="svgA-${id}"  x="110.55" y="39.5" text-anchor="middle" font-family="'EB Garamond',Georgia,serif" font-weight="700" font-size="11" fill="#2a1a0e">\u00A0</text>
-          <text id="svgTB-${id}" x="110.55" y="57.5" text-anchor="middle" font-family="'EB Garamond',Georgia,serif" font-style="italic" font-size="10" fill="#2a1a0e">\u00A0</text>
+          <text id="svgTA-${id}" x="110.55" y="21" text-anchor="middle" font-family="'EB Garamond',Georgia,serif" font-style="italic" font-size="10" fill="transparent">\u00A0</text>
+          <text id="svgA-${id}"  x="110.55" y="39.5" text-anchor="middle" font-family="'EB Garamond',Georgia,serif" font-weight="700" font-size="11" fill="transparent">\u00A0</text>
+          <text id="svgTB-${id}" x="110.55" y="57.5" text-anchor="middle" font-family="'EB Garamond',Georgia,serif" font-style="italic" font-size="10" fill="transparent">\u00A0</text>
         </svg>`;
       }
 
-      function addLabel() {
+      function addLabel(ta, artist, tb) {
+        ta = ta ?? "";
+        artist = artist ?? "";
+        tb = tb ?? "";
         const id = ++uid;
         const card = document.createElement("div");
         card.className = "label-card";
         card.dataset.id = id;
         card.innerHTML = `
-          <div class="card-controls">
-            <div class="card-fields">
-              <input class="card-input" id="inTA-${id}" placeholder="A side" oninput="sync(${id})">
-              <input class="card-input artist" id="inA-${id}" placeholder="Artist / Band" oninput="sync(${id})">
-              <input class="card-input" id="inTB-${id}" placeholder="B side" oninput="sync(${id})">
+          <div class="label-wrap">
+            ${makeLabelSvg(id)}
+            <div class="label-overlays">
+              <input class="label-input ta"     id="inTA-${id}" placeholder="A side"        value="${esc(ta)}"     oninput="sync(${id}); save()">
+              <input class="label-input artist"  id="inA-${id}"  placeholder="Artist / Band" value="${esc(artist)}" oninput="sync(${id}); save()">
+              <input class="label-input tb"     id="inTB-${id}" placeholder="B side"        value="${esc(tb)}"     oninput="sync(${id}); save()">
             </div>
             <button class="btn-remove" onclick="removeCard(${id})" title="Remove">✕</button>
-          </div>
-          ${makeLabelSvg(id)}`;
+          </div>`;
         const grid = document.getElementById("labelGrid");
         grid.insertBefore(card, document.getElementById("addPlaceholder"));
+        sync(id);
       }
 
       function sync(id) {
@@ -331,6 +368,7 @@
         if (btn.dataset.armed) {
           clearTimeout(+btn.dataset.armed);
           card.remove();
+          save();
         } else {
           btn.textContent = "✕?";
           btn.dataset.armed = setTimeout(() => {
@@ -339,6 +377,36 @@
           }, 2000);
         }
       }
+
+      /* ── localStorage persistence ── */
+
+      function save() {
+        const cards = [...document.querySelectorAll(".label-card[data-id]")];
+        const data = cards.map((card) => {
+          const id = card.dataset.id;
+          return {
+            ta: document.getElementById(`inTA-${id}`)?.value ?? "",
+            artist: document.getElementById(`inA-${id}`)?.value ?? "",
+            tb: document.getElementById(`inTB-${id}`)?.value ?? "",
+          };
+        });
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      }
+
+      function loadFromStorage() {
+        try {
+          const raw = localStorage.getItem(STORAGE_KEY);
+          if (!raw) return;
+          const data = JSON.parse(raw);
+          if (Array.isArray(data)) {
+            data.forEach(({ ta, artist, tb }) => addLabel(ta, artist, tb));
+          }
+        } catch (e) {
+          console.warn("Failed to restore labels:", e);
+        }
+      }
+
+      loadFromStorage();
     </script>
   </body>
 </html>
