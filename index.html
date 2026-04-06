@@ -159,7 +159,7 @@
         font-style: italic;
       }
 
-      /* ── Remove button (top-right corner, reveals on hover) ── */
+      /* ── Remove button (top-right corner) ── */
       .btn-remove {
         position: absolute;
         top: 5px;
@@ -172,7 +172,7 @@
         padding: 4px 8px;
         font-size: 0.75rem;
         line-height: 1;
-        opacity: 0;
+        opacity: 0.55;
         transition:
           opacity 0.15s,
           border-color 0.15s,
@@ -363,7 +363,7 @@
             ${makeLabelSvg(id)}
             <div class="label-overlays">
               <input class="label-input ta"     id="inTA-${id}" placeholder="A side"        value="${esc(ta)}"     oninput="sync(${id}); save()">
-              <input class="label-input artist"  id="inA-${id}"  placeholder="Artist / Band" value="${esc(artist)}" oninput="sync(${id}); save()">
+              <input class="label-input artist"  id="inA-${id}"  placeholder="Artist" value="${esc(artist)}" oninput="sync(${id}); save()">
               <input class="label-input tb"     id="inTB-${id}" placeholder="B side"        value="${esc(tb)}"     oninput="sync(${id}); save()">
             </div>
             <button class="btn-remove" onclick="removeCard(${id})" title="Remove">✕</button>
