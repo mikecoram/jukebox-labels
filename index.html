@@ -11,7 +11,13 @@
       rel="stylesheet"
     />
     <style>
-      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
 
       body {
         font-family: system-ui, sans-serif;
@@ -24,79 +30,199 @@
         padding: 48px 24px 64px;
       }
 
-      header { text-align: center; }
-      header h1 { font-size: 2rem; font-weight: 700; letter-spacing: 0.06em; color: #f5d87a; text-transform: uppercase; }
-      header p { margin-top: 6px; color: #9a8870; font-size: 0.9rem; }
+      header {
+        text-align: center;
+      }
+      header h1 {
+        font-size: 2rem;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        color: #f5d87a;
+        text-transform: uppercase;
+      }
+      header p {
+        margin-top: 6px;
+        color: #9a8870;
+        font-size: 0.9rem;
+      }
 
       .form-panel {
-        background: #261e16; border: 1px solid #4a3820; border-radius: 14px;
-        padding: 32px 36px; width: 100%; max-width: 440px;
-        display: flex; flex-direction: column; gap: 20px;
-        box-shadow: 0 8px 40px rgba(0,0,0,0.6);
+        background: #261e16;
+        border: 1px solid #4a3820;
+        border-radius: 14px;
+        padding: 32px 36px;
+        width: 100%;
+        max-width: 440px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6);
       }
-      .field { display: flex; flex-direction: column; gap: 6px; }
+      .field {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
       .field label {
-        font-size: 0.72rem; font-weight: 600; text-transform: uppercase;
-        letter-spacing: 0.12em; color: #c5a85a;
-        display: flex; align-items: center; gap: 6px;
+        font-size: 0.72rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: #c5a85a;
+        display: flex;
+        align-items: center;
+        gap: 6px;
       }
       .badge {
-        display: inline-flex; align-items: center; justify-content: center;
-        width: 18px; height: 18px; border-radius: 50%; font-size: 0.65rem; font-weight: 700;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        font-size: 0.65rem;
+        font-weight: 700;
       }
-      .badge-a { background: #c5a85a; color: #1c1410; }
-      .badge-b { background: #009084; color: white; }
+      .badge-a {
+        background: #c5a85a;
+        color: #1c1410;
+      }
+      .badge-b {
+        background: #009084;
+        color: white;
+      }
       .field input {
-        background: #1c1410; border: 1px solid #4a3820; border-radius: 8px;
-        color: #f0e0c0; padding: 11px 14px; font-size: 1rem;
-        font-family: 'EB Garamond', Georgia, serif; outline: none;
-        transition: border-color 0.2s, box-shadow 0.2s;
+        background: #1c1410;
+        border: 1px solid #4a3820;
+        border-radius: 8px;
+        color: #f0e0c0;
+        padding: 11px 14px;
+        font-size: 1rem;
+        font-family: "EB Garamond", Georgia, serif;
+        outline: none;
+        transition:
+          border-color 0.2s,
+          box-shadow 0.2s;
+        width: 100%;
+        box-sizing: border-box; /* ensures padding doesn't overflow */
       }
-      .field input::placeholder { color: #5a4830; }
-      .field input:focus { border-color: #c5a85a; box-shadow: 0 0 0 3px rgba(197,168,90,0.15); }
-      .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+      .field input::placeholder {
+        color: #5a4830;
+      }
+      .field input:focus {
+        border-color: #c5a85a;
+        box-shadow: 0 0 0 3px rgba(197, 168, 90, 0.15);
+      }
+      .field-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+      }
 
       .btn-generate {
         background: linear-gradient(135deg, #c5a85a, #e0c878);
-        border: none; border-radius: 8px; padding: 13px 20px;
-        font-size: 0.88rem; font-weight: 700; letter-spacing: 0.1em;
-        text-transform: uppercase; cursor: pointer; color: #1c1410;
-        transition: opacity 0.2s, transform 0.1s;
+        border: none;
+        border-radius: 8px;
+        padding: 13px 20px;
+        font-size: 0.88rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        cursor: pointer;
+        color: #1c1410;
+        transition:
+          opacity 0.2s,
+          transform 0.1s;
       }
-      .btn-generate:hover { opacity: 0.9; }
-      .btn-generate:active { transform: scale(0.98); }
+      .btn-generate:hover {
+        opacity: 0.9;
+      }
+      .btn-generate:active {
+        transform: scale(0.98);
+      }
 
       .preview-section {
-        display: flex; flex-direction: column; align-items: center; gap: 20px;
-        opacity: 0; transform: translateY(16px);
-        transition: opacity 0.4s ease, transform 0.4s ease;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        opacity: 0;
+        transform: translateY(16px);
+        transition:
+          opacity 0.4s ease,
+          transform 0.4s ease;
         pointer-events: none;
       }
-      .preview-section.visible { opacity: 1; transform: translateY(0); pointer-events: all; }
-      .preview-label-text { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; color: #9a8870; }
+      .preview-section.visible {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: all;
+      }
+      .preview-label-text {
+        font-size: 0.72rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: #9a8870;
+      }
 
-      .label-paper { background: white; padding: 30px 40px; box-shadow: 0 4px 30px rgba(0,0,0,0.5); }
+      .label-paper {
+        background: white;
+        padding: 30px 40px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+      }
 
       .btn-print {
-        background: transparent; border: 1px solid #4a3820; border-radius: 8px;
-        padding: 10px 24px; font-size: 0.82rem; font-weight: 600;
-        letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer;
-        color: #9a8870; transition: border-color 0.2s, color 0.2s;
+        background: transparent;
+        border: 1px solid #4a3820;
+        border-radius: 8px;
+        padding: 10px 24px;
+        font-size: 0.82rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        cursor: pointer;
+        color: #9a8870;
+        transition:
+          border-color 0.2s,
+          color 0.2s;
       }
-      .btn-print:hover { border-color: #c5a85a; color: #c5a85a; }
+      .btn-print:hover {
+        border-color: #c5a85a;
+        color: #c5a85a;
+      }
 
       @media print {
-        body { background: white; padding: 0; display: block; }
-        header, .form-panel, .preview-label-text, .btn-print { display: none !important; }
-        .preview-section { opacity: 1; transform: none; pointer-events: all; }
-        .label-paper { background: white; padding: 0; box-shadow: none; }
+        body {
+          background: white;
+          padding: 0;
+          display: block;
+        }
+        header,
+        .form-panel,
+        .preview-label-text,
+        .btn-print {
+          display: none !important;
+        }
+        .preview-section {
+          opacity: 1;
+          transform: none;
+          pointer-events: all;
+        }
+        .label-paper {
+          background: white;
+          padding: 0;
+          box-shadow: none;
+        }
         /* Print at true physical size — Label.svg is 221.1 × 71.86 pt */
-        #labelSvg { width: 221.1pt; height: 71.86pt; }
+        #labelSvg {
+          width: 221.1pt;
+          height: 71.86pt;
+        }
       }
     </style>
   </head>
   <body>
-
     <header>
       <h1>Doug's Jukebox</h1>
       <p>Enter track details below to create your label</p>
@@ -105,19 +231,36 @@
     <div class="form-panel">
       <div class="field">
         <label>Artist / Band</label>
-        <input type="text" id="inputArtist" placeholder="e.g. Frank Sinatra" autocomplete="off" />
+        <input
+          type="text"
+          id="inputArtist"
+          placeholder="e.g. Frank Sinatra"
+          autocomplete="off"
+        />
       </div>
       <div class="field-row">
         <div class="field">
           <label><span class="badge badge-a">A</span> Track</label>
-          <input type="text" id="inputTrackA" placeholder="e.g. My Way" autocomplete="off" />
+          <input
+            type="text"
+            id="inputTrackA"
+            placeholder="e.g. My Way"
+            autocomplete="off"
+          />
         </div>
         <div class="field">
           <label><span class="badge badge-b">B</span> Track</label>
-          <input type="text" id="inputTrackB" placeholder="e.g. New York" autocomplete="off" />
+          <input
+            type="text"
+            id="inputTrackB"
+            placeholder="e.g. New York"
+            autocomplete="off"
+          />
         </div>
       </div>
-      <button class="btn-generate" onclick="generateLabel()">Generate Label</button>
+      <button class="btn-generate" onclick="generateLabel()">
+        Generate Label
+      </button>
     </div>
 
     <div class="preview-section" id="previewSection">
@@ -154,87 +297,183 @@
         >
           <!-- ══ Crop / registration marks ══ -->
           <g stroke="#777" stroke-width="0.35" fill="none">
-            <line x1="-8"   y1="0"     x2="-2"    y2="0"/>      <!-- TL horiz -->
-            <line x1="0"    y1="-8"    x2="0"     y2="-2"/>     <!-- TL vert  -->
-            <line x1="223.1" y1="0"   x2="229.1"  y2="0"/>      <!-- TR horiz -->
-            <line x1="221.1" y1="-8"  x2="221.1"  y2="-2"/>     <!-- TR vert  -->
-            <line x1="-8"   y1="71.86" x2="-2"    y2="71.86"/>  <!-- BL horiz -->
-            <line x1="0"    y1="73.86" x2="0"     y2="79.86"/>  <!-- BL vert  -->
-            <line x1="223.1" y1="71.86" x2="229.1" y2="71.86"/> <!-- BR horiz -->
-            <line x1="221.1" y1="73.86" x2="221.1" y2="79.86"/> <!-- BR vert  -->
+            <line x1="-8" y1="0" x2="-2" y2="0" />
+            <!-- TL horiz -->
+            <line x1="0" y1="-8" x2="0" y2="-2" />
+            <!-- TL vert  -->
+            <line x1="223.1" y1="0" x2="229.1" y2="0" />
+            <!-- TR horiz -->
+            <line x1="221.1" y1="-8" x2="221.1" y2="-2" />
+            <!-- TR vert  -->
+            <line x1="-8" y1="71.86" x2="-2" y2="71.86" />
+            <!-- BL horiz -->
+            <line x1="0" y1="73.86" x2="0" y2="79.86" />
+            <!-- BL vert  -->
+            <line x1="223.1" y1="71.86" x2="229.1" y2="71.86" />
+            <!-- BR horiz -->
+            <line x1="221.1" y1="73.86" x2="221.1" y2="79.86" />
+            <!-- BR vert  -->
           </g>
 
           <!-- ══ Label.svg content (verbatim) ══ -->
           <defs>
             <style>
-              .cls-1, .cls-2, .cls-3, .cls-4 { fill: none; }
-              .cls-5  { fill: #ffedcb; }
-              .cls-2  { stroke: #009084; }
-              .cls-2, .cls-3, .cls-4 { stroke-width: .6px; }
-              .cls-6  { clip-path: url(#clippath-1); }
-              .cls-7  { clip-path: url(#clippath-3); }
-              .cls-8  { clip-path: url(#clippath-2); }
-              .cls-9  { fill: #fff; }
-              .cls-10 { fill: #009084; }
-              .cls-11 { opacity: .25; }
-              .cls-3  { stroke: #e4ae28; }
-              .cls-4  { stroke: #fff; }
-              .cls-12 { clip-path: url(#clippath); }
+              .cls-1,
+              .cls-2,
+              .cls-3,
+              .cls-4 {
+                fill: none;
+              }
+              .cls-5 {
+                fill: #ffedcb;
+              }
+              .cls-2 {
+                stroke: #009084;
+              }
+              .cls-2,
+              .cls-3,
+              .cls-4 {
+                stroke-width: 0.6px;
+              }
+              .cls-6 {
+                clip-path: url(#clippath-1);
+              }
+              .cls-7 {
+                clip-path: url(#clippath-3);
+              }
+              .cls-8 {
+                clip-path: url(#clippath-2);
+              }
+              .cls-9 {
+                fill: #fff;
+              }
+              .cls-10 {
+                fill: #009084;
+              }
+              .cls-11 {
+                opacity: 0.25;
+              }
+              .cls-3 {
+                stroke: #e4ae28;
+              }
+              .cls-4 {
+                stroke: #fff;
+              }
+              .cls-12 {
+                clip-path: url(#clippath);
+              }
             </style>
             <clipPath id="clippath">
-              <rect class="cls-1" width="221.1" height="71.86"/>
+              <rect class="cls-1" width="221.1" height="71.86" />
             </clipPath>
             <clipPath id="clippath-1">
-              <rect class="cls-1" y="0" width="221.1" height="71.86"/>
+              <rect class="cls-1" y="0" width="221.1" height="71.86" />
             </clipPath>
             <clipPath id="clippath-2">
-              <rect class="cls-1" x="9.17" y="-.87" width="202.85" height="46.61"/>
+              <rect
+                class="cls-1"
+                x="9.17"
+                y="-.87"
+                width="202.85"
+                height="46.61"
+              />
             </clipPath>
             <clipPath id="clippath-3">
-              <rect class="cls-1" x="9.17" y="18.96" width="202.85" height="26.78"/>
+              <rect
+                class="cls-1"
+                x="9.17"
+                y="18.96"
+                width="202.85"
+                height="26.78"
+              />
             </clipPath>
           </defs>
 
           <g class="cls-12">
-            <rect class="cls-5" y="0" width="221.1" height="71.86"/>
+            <rect class="cls-5" y="0" width="221.1" height="71.86" />
             <g class="cls-6">
               <!-- Amber stripes top -->
-              <line class="cls-3" y1="4.22"  x2="221.1" y2="4.22"/>
-              <line class="cls-3" y1="5.89"  x2="221.1" y2="5.89"/>
-              <line class="cls-3" y1="7.57"  x2="221.1" y2="7.57"/>
+              <line class="cls-3" y1="4.22" x2="221.1" y2="4.22" />
+              <line class="cls-3" y1="5.89" x2="221.1" y2="5.89" />
+              <line class="cls-3" y1="7.57" x2="221.1" y2="7.57" />
               <!-- Amber stripes bottom -->
-              <line class="cls-3" y1="64.25" x2="221.1" y2="64.25"/>
-              <line class="cls-3" y1="65.92" x2="221.1" y2="65.92"/>
-              <line class="cls-3" y1="67.6"  x2="221.1" y2="67.6"/>
+              <line class="cls-3" y1="64.25" x2="221.1" y2="64.25" />
+              <line class="cls-3" y1="65.92" x2="221.1" y2="65.92" />
+              <line class="cls-3" y1="67.6" x2="221.1" y2="67.6" />
               <!-- White octagon at 25% opacity -->
               <g class="cls-11">
                 <g class="cls-8">
-                  <polygon class="cls-9" points="18.47 32.39 18.47 39.47 23.42 44.43 197.71 44.43 202.72 39.47 202.72 32.39 197.82 27.42 23.43 27.42 18.47 32.39"/>
-                  <polygon class="cls-4" points="18.47 32.39 18.47 39.47 23.42 44.43 197.71 44.43 202.72 39.47 202.72 32.39 197.82 27.42 23.43 27.42 18.47 32.39"/>
+                  <polygon
+                    class="cls-9"
+                    points="18.47 32.39 18.47 39.47 23.42 44.43 197.71 44.43 202.72 39.47 202.72 32.39 197.82 27.42 23.43 27.42 18.47 32.39"
+                  />
+                  <polygon
+                    class="cls-4"
+                    points="18.47 32.39 18.47 39.47 23.42 44.43 197.71 44.43 202.72 39.47 202.72 32.39 197.82 27.42 23.43 27.42 18.47 32.39"
+                  />
                 </g>
               </g>
               <!-- Teal octagon at 25% opacity (creates sage-green blend effect) -->
               <g class="cls-11">
                 <g class="cls-7">
-                  <polygon class="cls-10" points="18.47 32.39 18.47 39.47 23.42 44.43 197.71 44.43 202.72 39.47 202.72 32.39 197.82 27.42 23.43 27.42 18.47 32.39"/>
-                  <polygon class="cls-2"  points="18.47 32.39 18.47 39.47 23.42 44.43 197.71 44.43 202.72 39.47 202.72 32.39 197.82 27.42 23.43 27.42 18.47 32.39"/>
+                  <polygon
+                    class="cls-10"
+                    points="18.47 32.39 18.47 39.47 23.42 44.43 197.71 44.43 202.72 39.47 202.72 32.39 197.82 27.42 23.43 27.42 18.47 32.39"
+                  />
+                  <polygon
+                    class="cls-2"
+                    points="18.47 32.39 18.47 39.47 23.42 44.43 197.71 44.43 202.72 39.47 202.72 32.39 197.82 27.42 23.43 27.42 18.47 32.39"
+                  />
                 </g>
               </g>
               <!-- Teal side lines — right (5 parallel horizontal lines) -->
-              <line class="cls-2" x1="203.02" y1="32.73" x2="221.1" y2="32.73"/>
-              <line class="cls-2" x1="203.02" y1="34.39" x2="221.1" y2="34.39"/>
-              <line class="cls-2" x1="203.02" y1="36.06" x2="221.1" y2="36.06"/>
-              <line class="cls-2" x1="203.02" y1="37.72" x2="221.1" y2="37.72"/>
-              <line class="cls-2" x1="203.02" y1="39.38" x2="221.1" y2="39.38"/>
+              <line
+                class="cls-2"
+                x1="203.02"
+                y1="32.73"
+                x2="221.1"
+                y2="32.73"
+              />
+              <line
+                class="cls-2"
+                x1="203.02"
+                y1="34.39"
+                x2="221.1"
+                y2="34.39"
+              />
+              <line
+                class="cls-2"
+                x1="203.02"
+                y1="36.06"
+                x2="221.1"
+                y2="36.06"
+              />
+              <line
+                class="cls-2"
+                x1="203.02"
+                y1="37.72"
+                x2="221.1"
+                y2="37.72"
+              />
+              <line
+                class="cls-2"
+                x1="203.02"
+                y1="39.38"
+                x2="221.1"
+                y2="39.38"
+              />
               <!-- Teal side lines — left -->
-              <line class="cls-2" x1="0" y1="32.6"  x2="18.17" y2="32.6"/>
-              <line class="cls-2" x1="0" y1="34.27" x2="18.17" y2="34.27"/>
-              <line class="cls-2" x1="0" y1="35.93" x2="18.17" y2="35.93"/>
-              <line class="cls-2" x1="0" y1="37.6"  x2="18.17" y2="37.6"/>
-              <line class="cls-2" x1="0" y1="39.26" x2="18.17" y2="39.26"/>
+              <line class="cls-2" x1="0" y1="32.6" x2="18.17" y2="32.6" />
+              <line class="cls-2" x1="0" y1="34.27" x2="18.17" y2="34.27" />
+              <line class="cls-2" x1="0" y1="35.93" x2="18.17" y2="35.93" />
+              <line class="cls-2" x1="0" y1="37.6" x2="18.17" y2="37.6" />
+              <line class="cls-2" x1="0" y1="39.26" x2="18.17" y2="39.26" />
             </g>
             <!-- Teal octagon outline (full opacity) -->
-            <polygon class="cls-2" points="18.47 32.39 18.47 39.47 23.42 44.43 197.71 44.43 202.72 39.47 202.72 32.39 197.82 27.42 23.43 27.42 18.47 32.39"/>
+            <polygon
+              class="cls-2"
+              points="18.47 32.39 18.47 39.47 23.42 44.43 197.71 44.43 202.72 39.47 202.72 32.39 197.82 27.42 23.43 27.42 18.47 32.39"
+            />
           </g>
 
           <!-- ══ Text overlays ══
@@ -246,7 +485,8 @@
           <!-- Track A: italic, centred between top stripes and band -->
           <text
             id="svgTrackA"
-            x="110.55" y="21"
+            x="110.55"
+            y="21"
             text-anchor="middle"
             font-family="'EB Garamond', Georgia, serif"
             font-style="italic"
@@ -257,7 +497,8 @@
           <!-- Artist: bold, centred inside the octagon band -->
           <text
             id="svgArtist"
-            x="110.55" y="39.5"
+            x="110.55"
+            y="39.5"
             text-anchor="middle"
             font-family="'EB Garamond', Georgia, serif"
             font-weight="700"
@@ -268,40 +509,48 @@
           <!-- Track B: italic, centred between band and bottom stripes -->
           <text
             id="svgTrackB"
-            x="110.55" y="57.5"
+            x="110.55"
+            y="57.5"
             text-anchor="middle"
             font-family="'EB Garamond', Georgia, serif"
             font-style="italic"
             font-size="10"
             fill="#2a1a0e"
           ></text>
-
         </svg>
       </div>
-      <button class="btn-print" onclick="window.print()">&#128438;&nbsp; Print Label</button>
+      <button class="btn-print" onclick="window.print()">
+        &#128438;&nbsp; Print Label
+      </button>
     </div>
 
     <script>
       function generateLabel() {
-        const artist = document.getElementById('inputArtist').value.trim();
-        const trackA = document.getElementById('inputTrackA').value.trim();
-        const trackB = document.getElementById('inputTrackB').value.trim();
+        const artist = document.getElementById("inputArtist").value.trim();
+        const trackA = document.getElementById("inputTrackA").value.trim();
+        const trackB = document.getElementById("inputTrackB").value.trim();
 
-        document.getElementById('svgArtist').textContent = artist || '\u00A0';
-        document.getElementById('svgTrackA').textContent = trackA || '\u00A0';
-        document.getElementById('svgTrackB').textContent = trackB || '\u00A0';
+        document.getElementById("svgArtist").textContent = artist || "\u00A0";
+        document.getElementById("svgTrackA").textContent = trackA || "\u00A0";
+        document.getElementById("svgTrackB").textContent = trackB || "\u00A0";
 
-        document.getElementById('previewSection').classList.add('visible');
+        document.getElementById("previewSection").classList.add("visible");
       }
 
-      ['inputArtist', 'inputTrackA', 'inputTrackB'].forEach(id => {
+      ["inputArtist", "inputTrackA", "inputTrackB"].forEach((id) => {
         const el = document.getElementById(id);
-        el.addEventListener('input', () => {
-          if (document.getElementById('previewSection').classList.contains('visible')) generateLabel();
+        el.addEventListener("input", () => {
+          if (
+            document
+              .getElementById("previewSection")
+              .classList.contains("visible")
+          )
+            generateLabel();
         });
-        el.addEventListener('keydown', e => { if (e.key === 'Enter') generateLabel(); });
+        el.addEventListener("keydown", (e) => {
+          if (e.key === "Enter") generateLabel();
+        });
       });
     </script>
-
   </body>
 </html>
