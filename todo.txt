@@ -1,5 +1,8 @@
-Allow multiple labels to be created and staged
+Implement each of these TODOs, commit after verifying that each one works
+
+Allow multiple labels to be created and staged, display labels 2 per row
 Allow staged labels to be removed and edited
-When printing, lay out labels in 2x8 grid per page
-Persist staged labels using local storage (prevent accidental reload losing all progress)
+When printing, lay out labels in 2x8 grid per A4 page
 Fix crop lines so that they match "label design.png"
+Ensure site is usable on mobile devices, ipad size and phone size
+Persist staged labels using local storage (prevent accidental reload losing all progress)
