@@ -168,18 +168,18 @@
       /* Font sizes scale with label width via container query units:
          SVG font-size / viewBox-width = pt / 241.1 */
       .label-input.ta {
-        top: 24%;
-        font-size: 4.15cqw;
+        top: 23%;
+        font-size: 4.35cqw;
         font-style: italic;
       }
       .label-input.artist {
-        top: 43%;
-        font-size: 4.56cqw;
+        top: 42%;
+        font-size: 4.69cqw;
         font-weight: 700;
       }
       .label-input.tb {
-        top: 63%;
-        font-size: 4.15cqw;
+        top: 61%;
+        font-size: 4.35cqw;
         font-style: italic;
       }
 
@@ -187,7 +187,7 @@
       .btn-remove {
         position: absolute;
         top: 5px;
-        right: 5px;
+        right: 0;
         background: rgba(28, 20, 16, 0.75);
         border: 1px solid #3a2c1c;
         border-radius: 6px;
@@ -420,9 +420,7 @@
           clearTimeout(+btn.dataset.armed);
           animateRemoveCard(card);
         } else {
-          btn.textContent = "✕?";
           btn.dataset.armed = setTimeout(() => {
-            btn.textContent = "✕";
             delete btn.dataset.armed;
           }, 2000);
         }
